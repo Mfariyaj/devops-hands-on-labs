@@ -1,0 +1,60 @@
+{
+  "id": "pipeline-07-trigger-broken",
+  "application": "myapp",
+  "name": "Auto Deploy",
+  "keepWaitingPipelines": false,
+  "limitConcurrent": true,
+  "triggers": [
+    {
+      "type": "docker",
+      "enabled": true,
+      "account": "dockerhub",
+      "organization": "myorg",
+      "repository": "myorg/myapp",
+      "tag": "v[0-9]+\\.[0-9]+\\.[0-9]+",
+      "runAsUser": "spinnaker-svc"
+    },
+    {
+      "type": "webhook",
+      "enabled": true,
+      "source": "github-deploy",
+      "payloadConstraints": {
+        "repository": "myapp"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "type": "deployManifest",
+      "name": "Deploy Latest",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "account": "my-k8s-account",
+      "namespace": "production",
+      "source": "text",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "myapp",
+            "namespace": "production"
+          },
+          "spec": {
+            "replicas": 3,
+            "selector": {"matchLabels": {"app": "myapp"}},
+            "template": {
+              "metadata": {"labels": {"app": "myapp"}},
+              "spec": {
+                "containers": [{
+                  "name": "myapp",
+                  "image": "${trigger.artifacts.?[type == 'docker/image'][0].reference}"
+                }]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

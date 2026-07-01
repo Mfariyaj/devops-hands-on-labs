@@ -1,0 +1,32 @@
+# Clouddriver Local Configuration (BROKEN)
+# This overrides the default clouddriver.yml settings
+
+kubernetes:
+  enabled: true
+  accounts:
+    - name: my-k8s-account
+      providerVersion: V2
+      serviceAccount: false
+      # BUG 1: Context name is wrong - 'production-cluster' doesn't exist
+      # The kubeconfig only has 'prod-cluster'
+      context: production-cluster
+      kubeconfigFile: /opt/spinnaker/credentials/kubeconfig
+      namespaces:
+        - default
+        - production
+        - staging
+      omitNamespaces:
+        - kube-system
+        - kube-public
+      kinds:
+        - deployment
+        - replicaSet
+        - service
+        - ingress
+        - configMap
+        - secret
+      liveManifestCalls: true
+      cacheThreads: 2
+      cachingPolicies: []
+      onlySpinnakerManaged: false
+  primaryAccount: my-k8s-account

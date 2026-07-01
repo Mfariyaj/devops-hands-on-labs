@@ -1,0 +1,121 @@
+{
+  "id": "pipeline-03-broken-expressions",
+  "application": "myapp",
+  "name": "Deploy Service",
+  "keepWaitingPipelines": false,
+  "limitConcurrent": true,
+  "parameterConfig": [
+    {
+      "name": "environment",
+      "label": "Target Environment",
+      "required": true,
+      "default": "staging",
+      "options": [
+        {"value": "staging"},
+        {"value": "production"}
+      ]
+    },
+    {
+      "name": "imageTag",
+      "label": "Docker Image Tag",
+      "required": true,
+      "default": "latest"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "webhook",
+      "source": "github",
+      "enabled": true
+    }
+  ],
+  "stages": [
+    {
+      "type": "evaluateVariables",
+      "name": "Determine Environment",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "variables": [
+        {
+          "key": "targetNamespace",
+          "value": "${trigger.parameter.environment}"
+        },
+        {
+          "key": "deployRegion",
+          "value": "${trigger.parameter.environment == 'production' ? 'us-east-1' : 'us-west-2'}"
+        }
+      ]
+    },
+    {
+      "type": "docker",
+      "name": "Build Docker",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "context": {
+        "dockerfilePath": "Dockerfile",
+        "repository": "myapp",
+        "tag": "${parameters.imageTag}"
+      }
+    },
+    {
+      "type": "deployManifest",
+      "name": "Deploy to Kubernetes",
+      "refId": "3",
+      "requisiteStageRefIds": ["2"],
+      "account": "my-k8s-account",
+      "namespace": "${targetNamespace}",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "myapp",
+            "namespace": "${targetNamespace}"
+          },
+          "spec": {
+            "replicas": 2,
+            "selector": {
+              "matchLabels": {
+                "app": "myapp"
+              }
+            },
+            "template": {
+              "metadata": {
+                "labels": {
+                  "app": "myapp"
+                }
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "name": "myapp",
+                    "image": "${#stage(Build Docker).outputs.image}"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "wait",
+      "name": "Verify Deployment",
+      "refId": "4",
+      "requisiteStageRefIds": ["3"],
+      "waitTime": 30,
+      "comments": "Waiting for deployment to stabilize"
+    },
+    {
+      "type": "webhook",
+      "name": "Send Notification",
+      "refId": "5",
+      "requisiteStageRefIds": ["4"],
+      "url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXX",
+      "method": "POST",
+      "payload": {
+        "text": "Deployment ${deployResult.status = 'SUCCEEDED' ? 'completed' : 'failed'} for ${trigger.parameter.environment}"
+      }
+    }
+  ]
+}

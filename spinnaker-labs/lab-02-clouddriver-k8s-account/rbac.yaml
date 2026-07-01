@@ -1,0 +1,44 @@
+# RBAC for Spinnaker Deployer Service Account
+# BUG 3: The ClusterRoleBinding is missing - only the ServiceAccount and ClusterRole exist
+# Without the binding, the service account has no permissions
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: spinnaker-deployer
+  namespace: spinnaker
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: spinnaker-deployer-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets", "namespaces", "events"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+# NOTE: ClusterRoleBinding is intentionally MISSING
+# This is what causes the 401 Unauthorized error
+# The fix is to add:
+#
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: spinnaker-deployer-binding
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io
+#   kind: ClusterRole
+#   name: spinnaker-deployer-role
+# subjects:
+#   - kind: ServiceAccount
+#     name: spinnaker-deployer
+#     namespace: spinnaker

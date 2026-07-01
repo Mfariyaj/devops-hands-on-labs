@@ -1,0 +1,81 @@
+{
+  "id": "pipeline-06-bluegreen-rollback",
+  "application": "myapp",
+  "name": "Red/Black Deploy with Rollback",
+  "keepWaitingPipelines": false,
+  "limitConcurrent": true,
+  "stages": [
+    {
+      "type": "deploy",
+      "name": "Deploy Red/Black",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "clusters": [
+        {
+          "account": "my-k8s-account",
+          "application": "myapp",
+          "stack": "production",
+          "detail": "",
+          "cloudProvider": "kubernetes",
+          "namespace": "production",
+          "strategy": "redblack",
+          "maxRemainingAsgs": 1,
+          "scaleDown": true,
+          "rollback": {
+            "onFailure": false
+          },
+          "targetSize": 3,
+          "capacity": {
+            "min": 3,
+            "desired": 3,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "shrinkCluster",
+      "name": "Cleanup Old Versions",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "cloudProvider": "kubernetes",
+      "cluster": "myapp-production",
+      "credentials": "my-k8s-account",
+      "namespaces": ["production"],
+      "allowDeleteActive": true,
+      "retainLargerOverNewer": false,
+      "shrinkToSize": 1
+    },
+    {
+      "type": "wait",
+      "name": "Bake Time (Monitor for Issues)",
+      "refId": "3",
+      "requisiteStageRefIds": ["2"],
+      "waitTime": 300
+    },
+    {
+      "type": "rollbackCluster",
+      "name": "Rollback Production",
+      "refId": "4",
+      "requisiteStageRefIds": ["3"],
+      "stageEnabled": {
+        "type": "expression",
+        "expression": "${#stage('Bake Time (Monitor for Issues)').status == 'SUCCEEDED' && trigger.parameters.rollback == 'true'}"
+      },
+      "cluster": "myapp-prod",
+      "credentials": "my-k8s-account",
+      "cloudProvider": "kubernetes",
+      "namespaces": ["production"],
+      "targetHealthyRollbackPercentage": 100,
+      "rollbackType": "PREVIOUS_IMAGE"
+    }
+  ],
+  "parameterConfig": [
+    {
+      "name": "rollback",
+      "label": "Trigger Rollback?",
+      "required": false,
+      "default": "false"
+    }
+  ]
+}

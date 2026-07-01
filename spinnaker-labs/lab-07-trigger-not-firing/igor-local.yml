@@ -1,0 +1,19 @@
+# Igor Local Configuration (BROKEN)
+# Note: account name here is 'docker-hub' (with hyphen)
+# But the pipeline trigger references 'dockerhub' (no hyphen)
+
+dockerRegistry:
+  enabled: true
+  accounts:
+    - name: docker-hub
+      address: https://index.docker.io
+      repositories:
+        - myorg/myapp
+        - myorg/myapi
+      username: myorg
+      passwordFile: /opt/spinnaker/credentials/docker-password
+      cacheIntervalSeconds: 30
+      cacheThreads: 2
+      trackDigests: true
+      sortTagsByDate: true
+  primaryAccount: docker-hub

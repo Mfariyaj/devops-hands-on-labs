@@ -21,6 +21,7 @@ show_usage() {
     echo "  linux            - Linux/Networking labs (10 labs)"
     echo "  nginx            - Nginx/HAProxy labs (10 labs)"
     echo "  cicd             - CI/CD Pipelines labs (10 labs)"
+    echo "  spinnaker        - Spinnaker labs (15 labs)"
     echo "  all              - All categories"
     echo ""
     echo "Example: $0 docker"
@@ -64,6 +65,9 @@ deploy_category() {
         cicd|pipelines|cicd-pipelines)
             dir="$BASE_DIR/cicd-pipelines-labs"
             ;;
+        spinnaker)
+            dir="$BASE_DIR/spinnaker-labs"
+            ;;
         *)
             echo "❌ Unknown category: $category"
             show_usage
@@ -91,7 +95,7 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ "$1" = "all" ]; then
-    for cat in terraform docker ansible jenkins argocd prometheus helm linux nginx cicd; do
+    for cat in k8s terraform docker ansible jenkins argocd prometheus helm linux nginx cicd spinnaker; do
         deploy_category "$cat"
         echo ""
     done

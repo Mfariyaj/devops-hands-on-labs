@@ -1,0 +1,24 @@
+{
+  "schema": "v2",
+  "application": "myapp",
+  "name": "Deploy Myapp to Production",
+  "template": {
+    "source": "spinnaker://deploy-standard-v2"
+  },
+  "variables": {
+    "targetCluster": "my-k8s-account",
+    "namespace": "production",
+    "replicas": "3",
+    "imageTag": "v2.1.0"
+  },
+  "inherit": [],
+  "triggers": [
+    {
+      "type": "docker",
+      "enabled": true,
+      "account": "docker-hub",
+      "repository": "myorg/myapp",
+      "tag": "v.*"
+    }
+  ]
+}

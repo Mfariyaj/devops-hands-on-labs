@@ -1,0 +1,65 @@
+{
+  "id": "pipeline-04-deploy-manifest",
+  "application": "myapp",
+  "name": "Deploy Production",
+  "keepWaitingPipelines": false,
+  "limitConcurrent": true,
+  "expectedArtifacts": [
+    {
+      "id": "artifact-xyz789-github-file",
+      "displayName": "k8s-deployment-manifest",
+      "matchArtifact": {
+        "type": "github/file",
+        "reference": "https://api.github.com/repos/myorg/myapp/contents/deploy/k8s/deployment.yml"
+      },
+      "defaultArtifact": {
+        "type": "github/file",
+        "reference": "https://api.github.com/repos/myorg/myapp/contents/deploy/k8s/deployment.yml",
+        "version": "main"
+      },
+      "useDefaultArtifact": true,
+      "usePriorArtifact": false
+    }
+  ],
+  "triggers": [
+    {
+      "type": "git",
+      "source": "github",
+      "organization": "myorg",
+      "repository": "myapp",
+      "branch": "main",
+      "enabled": true,
+      "expectedArtifactIds": ["artifact-xyz789-github-file"]
+    }
+  ],
+  "stages": [
+    {
+      "type": "deployManifest",
+      "name": "Deploy to Production",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "account": "my-k8s-account",
+      "cloudProvider": "kubernetes",
+      "moniker": {
+        "app": "myapp"
+      },
+      "namespaceOverride": "production-ns",
+      "source": "artifact",
+      "manifestArtifactId": "artifact-abc123-deploy-manifest",
+      "requiredArtifactIds": [
+        "artifact-abc123-deploy-manifest"
+      ],
+      "skipExpressionEvaluation": false,
+      "trafficManagement": {
+        "enabled": false
+      }
+    },
+    {
+      "type": "wait",
+      "name": "Wait for Stabilization",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "waitTime": 60
+    }
+  ]
+}

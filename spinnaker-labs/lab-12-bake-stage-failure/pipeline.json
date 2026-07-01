@@ -1,0 +1,47 @@
+{
+  "id": "pipeline-12-bake",
+  "application": "myapp",
+  "name": "Bake and Deploy",
+  "stages": [
+    {
+      "type": "bake",
+      "name": "Bake AMI",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "cloudProviderType": "aws",
+      "region": "us-west-2",
+      "package": "myapp-1.2.3",
+      "baseOs": "ubuntu",
+      "baseLabel": "release",
+      "vmType": "hvm",
+      "storeType": "ebs",
+      "templateFileName": "custom-packer-template.json",
+      "extendedAttributes": {
+        "aws_region": "us-west-2",
+        "app_version": "1.2.3"
+      }
+    },
+    {
+      "type": "deploy",
+      "name": "Deploy to Production",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "clusters": [
+        {
+          "account": "my-aws-account",
+          "application": "myapp",
+          "region": "us-west-2",
+          "availabilityZones": {
+            "us-west-2": ["us-west-2a", "us-west-2b"]
+          },
+          "instanceType": "t3.medium",
+          "capacity": {
+            "min": 2,
+            "desired": 3,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ]
+}

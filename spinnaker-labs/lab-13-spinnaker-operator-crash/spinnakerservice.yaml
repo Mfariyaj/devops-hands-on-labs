@@ -1,0 +1,51 @@
+# SpinnakerService Custom Resource (BROKEN)
+apiVersion: spinnaker.io/v1alpha2
+kind: SpinnakerService
+metadata:
+  name: spinnaker
+  namespace: spinnaker
+spec:
+  spinnakerConfig:
+    # BUG 3: This should be under 'config:' key but it's directly here
+    # The operator expects spec.spinnakerConfig.config.{...}
+    version: 1.32.0
+    persistentStorage:
+      persistentStoreType: s3
+      s3:
+        # BUG: Bucket doesn't exist and pathStyleAccess should be true for MinIO
+        bucket: spinnaker-minio-nonexistent
+        region: us-east-1
+        endpoint: http://minio.spinnaker:9000
+        accessKeyId: minioadmin
+        secretAccessKey: minioadmin
+        pathStyleAccess: false
+        rootFolder: front50
+    providers:
+      kubernetes:
+        enabled: true
+        accounts:
+          - name: my-k8s-account
+            providerVersion: V2
+            serviceAccount: true
+            namespaces: []
+            kinds: []
+        primaryAccount: my-k8s-account
+    deploymentEnvironment:
+      size: SMALL
+      type: Distributed
+      location: spinnaker
+    features:
+      artifacts: true
+    # Redis connection settings
+    redis:
+      connection: redis://spin-redis:6379
+      password: spinnaker-secret-password
+  expose:
+    type: service
+    service:
+      type: ClusterIP
+      overrides:
+        deck:
+          port: 9000
+        gate:
+          port: 8084

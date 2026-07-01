@@ -1,0 +1,81 @@
+# Delivery Config (BROKEN)
+# Managed Delivery configuration for myapp
+
+name: myapp
+application: myapp
+serviceAccount: spinnaker-managed-delivery
+artifacts:
+  - name: myapp-docker
+    type: docker
+    reference: myorg/myapp
+    tagVersionStrategy:
+      strategy: semver
+environments:
+  - name: testing
+    resources:
+      - kind: k8s/resource@v1
+        spec:
+          metadata:
+            application: myapp
+          template:
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: myapp
+              namespace: testing
+            spec:
+              replicas: 2
+              selector:
+                matchLabels:
+                  app: myapp
+              template:
+                metadata:
+                  labels:
+                    app: myapp
+                spec:
+                  containers:
+                    - name: myapp
+                      image: myorg/myapp
+                      ports:
+                        - containerPort: 8080
+  - name: production
+    # BUG 1: constraints is wrongly indented under resources level
+    resources:
+      - kind: k8s/resource@v1
+        spec:
+          metadata:
+            application: myapp
+          template:
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: myapp
+              namespace: production
+            spec:
+              replicas: 5
+              selector:
+                matchLabels:
+                  app: myapp
+              template:
+                metadata:
+                  labels:
+                    app: myapp
+                spec:
+                  containers:
+                    - name: myapp
+                      image: myorg/myapp
+                      ports:
+                        - containerPort: 8080
+        # BUG: constraints should be at environment level, not under resource
+        constraints:
+          - type: depends-on
+            # BUG 2: Environment name is 'testing' not 'test'
+            environment: test
+          - type: allowed-times
+            windows:
+              # BUG 3: days should be a list and hours should be a string
+              - days: Mon-Fri
+                hours: 9-17
+    verifications:
+      - type: automated
+        id: integration-tests

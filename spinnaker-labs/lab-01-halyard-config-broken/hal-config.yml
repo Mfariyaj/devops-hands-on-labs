@@ -1,0 +1,57 @@
+# Halyard Configuration File (BROKEN)
+# This simulates ~/.hal/config with storage misconfiguration
+
+currentDeployment: default
+deploymentConfigurations:
+  - name: default
+    version: 1.32.0
+    providers:
+      kubernetes:
+        enabled: true
+        accounts:
+          - name: my-k8s-account
+            providerVersion: V2
+            context: spinnaker-context
+            kubeconfigFile: /home/spinnaker/.kube/config
+        primaryAccount: my-k8s-account
+    deploymentEnvironment:
+      size: SMALL
+      type: Distributed
+      accountName: my-k8s-account
+      location: spinnaker
+    persistentStorage:
+      persistentStoreType: s3
+      s3:
+        # BUG 1: Bucket name is a placeholder - doesn't exist
+        bucket: spinnaker-data-bucket-CHANGEME
+        # BUG 2: Region is invalid - 'us-north-1' doesn't exist
+        region: us-north-1
+        # BUG 3: Root folder has a typo (minor issue)
+        rootFolder: frnt50
+        # BUG 4: Access key is a placeholder
+        accessKeyId: AKIA_PLACEHOLDER_KEY
+        # BUG 5: Secret key is obviously wrong
+        secretAccessKey: wJalrXUtnFEMI/PLACEHOLDER/SECRET+KEY
+        pathStyleAccess: false
+      azs: {}
+      gcs: {}
+      redis: {}
+      oracle: {}
+    features:
+      auth: false
+      fiat: false
+      chaos: false
+    metricStores:
+      datadog:
+        enabled: false
+      prometheus:
+        enabled: false
+      stackdriver:
+        enabled: false
+    notifications:
+      slack:
+        enabled: false
+    timezone: America/Los_Angeles
+    ci:
+      jenkins:
+        enabled: false

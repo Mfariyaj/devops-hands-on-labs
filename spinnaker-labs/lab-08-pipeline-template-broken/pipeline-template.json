@@ -1,0 +1,102 @@
+{
+  "schema": "v2",
+  "id": "deploy-standard-v2",
+  "metadata": {
+    "name": "Standard Deploy Template",
+    "description": "Standardized deployment pipeline for all microservices",
+    "owner": "platform-team@example.com",
+    "scopes": ["global"]
+  },
+  "protect": false,
+  "variables": [
+    {
+      "name": "targetCluster",
+      "description": "Target Kubernetes cluster account",
+      "type": "string",
+      "defaultValue": "my-k8s-account"
+    },
+    {
+      "name": "namespace",
+      "description": "Target namespace for deployment",
+      "type": "string"
+    },
+    {
+      "name": "replicas",
+      "description": "Number of replicas",
+      "type": "int",
+      "defaultValue": 2
+    },
+    {
+      "name": "imageTag",
+      "description": "Docker image tag to deploy",
+      "type": "string",
+      "defaultValue": "latest"
+    }
+  ],
+  "pipeline": {
+    "application": "{{ templateVariables.application }}",
+    "name": "Deploy {{ templateVariables.namespace }}",
+    "keepWaitingPipelines": false,
+    "limitConcurrent": true,
+    "stages": [
+      {
+        "type": "deployManifest",
+        "name": "Deploy to {{ templateVariables.namespace }}",
+        "refId": "1",
+        "requisiteStageRefIds": [],
+        "account": "{{ templateVariables.cluster }}",
+        "namespace": "{{ templateVariables.namespace }}",
+        "source": "text",
+        "manifests": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+              "name": "{{ templateVariables.application }}",
+              "namespace": "{{ templateVariables.namespace }}"
+            },
+            "spec": {
+              "replicas": "{{ templateVariables.replicas }}",
+              "selector": {
+                "matchLabels": {
+                  "app": "{{ templateVariables.application }}"
+                }
+              },
+              "template": {
+                "metadata": {
+                  "labels": {
+                    "app": "{{ templateVariables.application }}"
+                  }
+                },
+                "spec": {
+                  "containers": [
+                    {
+                      "name": "app",
+                      "image": "myorg/{{ templateVariables.application }}:{{ templateVariables.imageTag }}"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "wait",
+        "name": "Stabilization Period",
+        "refId": "2",
+        "requisiteStageRefIds": ["1"],
+        "waitTime": 60
+      },
+      {
+        "type": "module",
+        "name": "Send Notifications",
+        "refId": "3",
+        "requisiteStageRefIds": ["2"],
+        "module": {
+          "source": "spinnaker://notifications-module"
+        }
+      }
+    ]
+  }
+}

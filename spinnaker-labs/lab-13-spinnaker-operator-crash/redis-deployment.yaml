@@ -1,0 +1,47 @@
+# Redis Deployment (BROKEN)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spin-redis
+  namespace: spinnaker
+  labels:
+    app: spin-redis
+spec:
+  # BUG 1: replicas is 0 - no Redis pods will start
+  replicas: 0
+  selector:
+    matchLabels:
+      app: spin-redis
+  template:
+    metadata:
+      labels:
+        app: spin-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+          # BUG 2: No password configured, but SpinnakerService expects password auth
+          # command: ["redis-server", "--requirepass", "spinnaker-secret-password"]
+          command: ["redis-server"]
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spin-redis
+  namespace: spinnaker
+spec:
+  selector:
+    app: spin-redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP

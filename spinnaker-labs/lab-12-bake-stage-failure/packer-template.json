@@ -1,0 +1,42 @@
+{
+  "variables": {
+    "aws_region": "us-west-2",
+    "app_version": "1.2.3",
+    "vpc_id": "vpc-0abcdef1234567890"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-west-2",
+      "source_ami": "ami-0123456789INVALID",
+      "instance_type": "t3.medium",
+      "ssh_username": "ubuntu",
+      "ami_name": "myapp-{{user `app_version`}}-{{timestamp}}",
+      "ami_description": "MyApp v{{user `app_version`}} AMI",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "subnet-0abc123",
+      "associate_public_ip_address": true,
+      "tags": {
+        "Name": "myapp-{{user `app_version`}}",
+        "Application": "myapp",
+        "Version": "{{user `app_version`}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "sudo apt-get install -y myapp={{user `app_version`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo systemctl enable myapp",
+        "sudo systemctl start myapp"
+      ]
+    },
+  ]
+}

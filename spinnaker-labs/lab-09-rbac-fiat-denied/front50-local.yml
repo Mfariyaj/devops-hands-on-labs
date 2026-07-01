@@ -1,0 +1,15 @@
+# Front50 Local Configuration
+# Stores application permissions metadata
+
+front50:
+  applicationPermissions:
+    enabled: true
+    
+  serviceAccount:
+    enabled: true
+    
+spinnaker:
+  s3:
+    enabled: true
+    bucket: spinnaker-metadata
+    rootFolder: front50

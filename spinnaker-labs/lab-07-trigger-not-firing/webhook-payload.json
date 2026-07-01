@@ -1,0 +1,16 @@
+{
+  "source": "github_deploy",
+  "repository": "myapp",
+  "tag": "release-1.2.3",
+  "branch": "main",
+  "commit": "abc123def456",
+  "author": "developer@example.com",
+  "message": "Release version 1.2.3",
+  "artifacts": [
+    {
+      "type": "docker/image",
+      "name": "myorg/myapp",
+      "reference": "myorg/myapp:release-1.2.3"
+    }
+  ]
+}

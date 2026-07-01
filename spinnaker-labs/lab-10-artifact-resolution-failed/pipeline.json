@@ -1,0 +1,54 @@
+{
+  "id": "pipeline-10-artifact-broken",
+  "application": "myapp",
+  "name": "Artifact Deploy Pipeline",
+  "expectedArtifacts": [
+    {
+      "id": "docker-image-artifact",
+      "displayName": "Docker Image",
+      "matchArtifact": {
+        "type": "Docker/Image",
+        "name": "myorg/myapp"
+      },
+      "useDefaultArtifact": true,
+      "defaultArtifact": {
+        "type": "docker/image",
+        "name": "myorg/myapp",
+        "reference": "myorg/myapp:latest"
+      },
+      "usePriorArtifact": false
+    },
+    {
+      "id": "k8s-manifest-artifact",
+      "displayName": "K8s Manifest",
+      "matchArtifact": {
+        "type": "github/file",
+        "name": "k8s/deploy.yaml",
+        "reference": "https://api.github.com/repos/myorg/myapp/contents/k8s/deploy.yaml"
+      },
+      "useDefaultArtifact": true,
+      "defaultArtifact": {},
+      "usePriorArtifact": false
+    }
+  ],
+  "triggers": [
+    {
+      "type": "docker",
+      "enabled": true,
+      "account": "docker-hub",
+      "repository": "myorg/myapp",
+      "expectedArtifactIds": ["docker-image-artifact"]
+    }
+  ],
+  "stages": [
+    {
+      "type": "deployManifest",
+      "name": "Deploy",
+      "refId": "1",
+      "account": "my-k8s-account",
+      "source": "artifact",
+      "manifestArtifactId": "k8s-manifest-artifact",
+      "requiredArtifactIds": ["docker-image-artifact"]
+    }
+  ]
+}

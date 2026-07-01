@@ -1,0 +1,29 @@
+# Echo Local Configuration (BROKEN)
+# Notification service configuration
+
+slack:
+  enabled: true
+  # BUG: This is a placeholder token - not a real Slack bot token
+  botName: spinnaker-bot
+  token: xoxb-PLACEHOLDER-TOKEN-REPLACE-ME-12345
+  baseUrl: https://slack.com/api/
+
+# Correctly configured but unused email settings
+mail:
+  enabled: false
+  host: smtp.example.com
+  port: 587
+  username: spinnaker@example.com
+  password: ${SMTP_PASSWORD}
+  from: spinnaker@example.com
+
+# Webhook notifications
+webhooks:
+  enabled: true
+
+# Notification preferences
+notifications:
+  slack:
+    enabled: true
+  email:
+    enabled: false

@@ -1,0 +1,86 @@
+{
+  "id": "pipeline-15-multi-cloud",
+  "application": "myapp",
+  "name": "Multi-Cloud Deploy",
+  "stages": [
+    {
+      "type": "deployManifest",
+      "name": "Deploy to Kubernetes (Staging)",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "account": "my-k8s-account",
+      "namespace": "staging",
+      "source": "text",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "myapp",
+            "namespace": "staging"
+          },
+          "spec": {
+            "replicas": 2,
+            "selector": {"matchLabels": {"app": "myapp"}},
+            "template": {
+              "metadata": {"labels": {"app": "myapp"}},
+              "spec": {
+                "containers": [{
+                  "name": "myapp",
+                  "image": "myorg/myapp:v2.0.0"
+                }]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "manualJudgment",
+      "name": "Approve AWS Deploy",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "judgmentInputs": [
+        {"value": "approve"},
+        {"value": "reject"}
+      ],
+      "propagateAuthentication": true
+    },
+    {
+      "type": "deploy",
+      "name": "Deploy to AWS",
+      "refId": "3",
+      "requisiteStageRefIds": ["2"],
+      "clusters": [
+        {
+          "account": "aws-production",
+          "application": "myapp",
+          "stack": "prod",
+          "detail": "",
+          "cloudProvider": "aws",
+          "region": "us-east-1",
+          "availabilityZones": {
+            "us-east-1": ["us-east-1a", "us-east-1b", "us-east-1c"]
+          },
+          "instanceType": "t3.medium",
+          "iamRole": "MyAppInstanceRole",
+          "keyPair": "spinnaker-keypair",
+          "securityGroups": ["sg-myapp-prod"],
+          "loadBalancers": ["myapp-prod-elb"],
+          "capacity": {
+            "min": 3,
+            "desired": 3,
+            "max": 6
+          },
+          "strategy": "redblack",
+          "maxRemainingAsgs": 2,
+          "healthCheckType": "ELB",
+          "healthCheckGracePeriod": 300,
+          "terminationPolicies": ["OldestInstance"],
+          "cooldown": 300,
+          "stageTimeoutMs": 60000
+        }
+      ]
+    }
+  ]
+}

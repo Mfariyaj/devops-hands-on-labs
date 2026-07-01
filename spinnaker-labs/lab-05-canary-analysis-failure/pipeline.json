@@ -1,0 +1,115 @@
+{
+  "id": "pipeline-05-canary-analysis",
+  "application": "myapp",
+  "name": "Canary Deploy",
+  "keepWaitingPipelines": false,
+  "limitConcurrent": true,
+  "stages": [
+    {
+      "type": "findImage",
+      "name": "Find Baseline Image",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "cloudProvider": "kubernetes",
+      "account": "my-k8s-account",
+      "cluster": "myapp-prod",
+      "namespaces": ["production"]
+    },
+    {
+      "type": "deployManifest",
+      "name": "Deploy Canary",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "account": "my-k8s-account",
+      "namespace": "production",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "myapp-canary",
+            "namespace": "production"
+          },
+          "spec": {
+            "replicas": 1,
+            "selector": {"matchLabels": {"app": "myapp", "track": "canary"}},
+            "template": {
+              "metadata": {"labels": {"app": "myapp", "track": "canary"}},
+              "spec": {
+                "containers": [{"name": "myapp", "image": "myorg/myapp:canary"}]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "deployManifest",
+      "name": "Deploy Baseline",
+      "refId": "3",
+      "requisiteStageRefIds": ["1"],
+      "account": "my-k8s-account",
+      "namespace": "production",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "myapp-baseline",
+            "namespace": "production"
+          },
+          "spec": {
+            "replicas": 1,
+            "selector": {"matchLabels": {"app": "myapp", "track": "baseline"}},
+            "template": {
+              "metadata": {"labels": {"app": "myapp", "track": "baseline"}},
+              "spec": {
+                "containers": [{"name": "myapp", "image": "myorg/myapp:current"}]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "kayentaCanary",
+      "name": "Canary Analysis",
+      "refId": "4",
+      "requisiteStageRefIds": ["2", "3"],
+      "canaryConfig": {
+        "canaryConfigId": "canary-config-broken-01",
+        "metricsAccountName": "my-prometheus",
+        "storageAccountName": "my-s3",
+        "scopes": [
+          {
+            "controlScope": "myapp-baseline",
+            "controlLocation": "production",
+            "experimentScope": "myapp-canary",
+            "experimentLocation": "production",
+            "extendedScopeParams": {
+              "type": "pod_name"
+            }
+          }
+        ],
+        "scoreThresholds": {
+          "marginal": "50",
+          "pass": "100"
+        },
+        "lifetimeDuration": "PT0H5M",
+        "beginCanaryAnalysisAfter": "PT0H1M",
+        "canaryAnalysisInterval": "PT0H2M",
+        "lookbackMins": 0
+      }
+    },
+    {
+      "type": "manualJudgment",
+      "name": "Promote Canary?",
+      "refId": "5",
+      "requisiteStageRefIds": ["4"],
+      "judgmentInputs": [
+        {"value": "promote"},
+        {"value": "rollback"}
+      ]
+    }
+  ]
+}

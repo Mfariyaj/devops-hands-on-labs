@@ -1,0 +1,68 @@
+{
+  "id": "canary-config-broken-01",
+  "name": "MyApp Canary Config",
+  "description": "Canary analysis config for MyApp service",
+  "applications": ["myapp"],
+  "judge": {
+    "name": "NetflixACAJudge-v1.0",
+    "judgeConfigurations": {}
+  },
+  "metrics": [
+    {
+      "name": "request_latency_p99",
+      "query": {
+        "type": "prometheus",
+        "customInlineTemplate": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{pod_name=~\"${scope}.*\",namespace=\"${location}\"}[1m])) by (le))",
+        "serviceType": "prometheus"
+      },
+      "groups": ["Performance"],
+      "analysisConfigurations": {
+        "canary": {
+          "direction": "increase",
+          "nanStrategy": "replace"
+        }
+      },
+      "scopeName": "default"
+    },
+    {
+      "name": "error_rate",
+      "query": {
+        "type": "prometheus",
+        "customInlineTemplate": "sum(rate(http_requests_total{pod_name=~\"${scope}.*\",namespace=\"${location}\",status=~\"5..\"}[1m])) / sum(rate(http_requests_total{pod_name=~\"${scope}.*\",namespace=\"${location}\"}[1m]))",
+        "serviceType": "prometheus"
+      },
+      "groups": ["Performance"],
+      "analysisConfigurations": {
+        "canary": {
+          "direction": "increase",
+          "critical": true,
+          "nanStrategy": "replace"
+        }
+      },
+      "scopeName": "default"
+    },
+    {
+      "name": "cpu_utilization",
+      "query": {
+        "type": "prometheus",
+        "customInlineTemplate": "avg(rate(container_cpu_usage_seconds_total{pod_name=~\"${scope}.*\",namespace=\"${location}\"}[1m]))",
+        "serviceType": "prometheus"
+      },
+      "groups": ["Resource Usage"],
+      "analysisConfigurations": {
+        "canary": {
+          "direction": "either",
+          "nanStrategy": "remove"
+        }
+      },
+      "scopeName": "default"
+    }
+  ],
+  "classifier": {
+    "groupWeights": {
+      "Performance": 70,
+      "Resource Usage": 30
+    }
+  },
+  "configVersion": "1"
+}

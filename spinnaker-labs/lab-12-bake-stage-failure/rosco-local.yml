@@ -1,0 +1,23 @@
+# Rosco Local Configuration (BROKEN)
+# Bakery service configuration
+
+rosco:
+  configDir: /opt/rosco/config/packer
+  
+aws:
+  enabled: true
+  # BUG: Region mismatch - this says us-east-1 but bake requests target us-west-2
+  defaultRegion: us-east-1
+  bakeryDefaults:
+    templateFile: aws-ebs.json
+    defaultVirtualizationType: hvm
+    baseImages:
+      - baseImage:
+          id: ubuntu
+          shortDescription: Ubuntu 20.04 LTS
+          packageType: DEB
+        virtualizations:
+          - region: us-east-1
+            virtualizationType: hvm
+            # This AMI only exists in us-east-1, not us-west-2
+            baseAmi: ami-0abcdef1234567890

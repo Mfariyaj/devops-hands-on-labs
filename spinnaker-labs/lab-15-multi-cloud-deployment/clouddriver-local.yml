@@ -1,0 +1,36 @@
+# Clouddriver Local Configuration - AWS Provider (BROKEN)
+
+aws:
+  enabled: true
+  accounts:
+    - name: aws-prod
+      accountId: "111111111111"
+      # BUG: AssumeRole ARN has placeholder account ID
+      assumeRole: "arn:aws:iam::000000000000:role/SpinnakerManaged"
+      regions:
+        - name: us-east-1
+        - name: us-west-2
+      defaultKeyPair: spinnaker-keypair
+      lifecycleHooks:
+        enabled: true
+  bakeryDefaults:
+    templateFile: aws-ebs.json
+    defaultVirtualizationType: hvm
+    baseImages: []
+  defaultAssumeRole: "role/SpinnakerManaged"
+  primaryAccount: aws-prod
+
+kubernetes:
+  enabled: true
+  accounts:
+    - name: my-k8s-account
+      providerVersion: V2
+      serviceAccount: true
+      namespaces:
+        - default
+        - staging
+        - production
+      kinds: []
+      omitNamespaces:
+        - kube-system
+  primaryAccount: my-k8s-account

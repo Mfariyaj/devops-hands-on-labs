@@ -1,0 +1,25 @@
+{
+  "name": "myapp",
+  "description": "Main application",
+  "email": "team@example.com",
+  "permissions": {
+    "READ": [
+      "developers",
+      "qa-team"
+    ],
+    "WRITE": [
+      "developers"
+    ],
+    "EXECUTE": [
+      "developers"
+    ]
+  },
+  "serviceAccounts": [
+    {
+      "name": "spinnaker-pipeline-svc",
+      "memberOf": [
+        "platform-admins"
+      ]
+    }
+  ]
+}

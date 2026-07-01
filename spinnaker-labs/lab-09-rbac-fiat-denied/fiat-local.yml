@@ -1,0 +1,26 @@
+# Fiat Local Configuration (BROKEN)
+# Authorization service configuration
+
+fiat:
+  enabled: true
+  
+auth:
+  groupMembership:
+    service: LDAP
+    ldap:
+      url: ldap://ldap.example.com:389
+      managerDn: cn=admin,dc=example,dc=com
+      managerPassword: ${LDAP_ADMIN_PASSWORD}
+      # BUG: Typo - 'Gruops' should be 'Groups'
+      groupSearchBase: ou=Gruops,dc=example,dc=com
+      groupSearchFilter: (member={0})
+      groupRoleAttributes: cn
+      userDnPattern: uid={0},ou=People,dc=example,dc=com
+      userSearchBase: ou=People,dc=example,dc=com
+      userSearchFilter: (uid={0})
+
+  admin:
+    roles:
+      - platform-admins
+
+  allowAccessToUnknownApplications: false

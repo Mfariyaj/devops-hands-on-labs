@@ -1,0 +1,37 @@
+{
+  "managingAccount": {
+    "accountId": "111111111111",
+    "roleName": "SpinnakerManaging",
+    "description": "The account where Spinnaker runs (Clouddriver)"
+  },
+  "managedAccount": {
+    "accountId": "222222222222",
+    "roleName": "SpinnakerManaged",
+    "roleArn": "arn:aws:iam::222222222222:role/SpinnakerManaged",
+    "description": "Target account for production deployments"
+  },
+  "trustPolicy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::111111111111:role/SpinnakerManaging"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  },
+  "requiredPermissions": [
+    "ec2:*",
+    "autoscaling:*",
+    "elasticloadbalancing:*",
+    "iam:PassRole",
+    "s3:GetObject"
+  ],
+  "notes": [
+    "The assumeRole ARN in clouddriver-local.yml must match managedAccount.roleArn",
+    "The placeholder 000000000000 must be replaced with actual account ID 222222222222",
+    "The pipeline uses 'aws-production' but the account is named 'aws-prod'"
+  ]
+}

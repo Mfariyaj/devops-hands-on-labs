@@ -1,0 +1,64 @@
+{
+  "id": "pipeline-11-notifications",
+  "application": "myapp",
+  "name": "Deploy with Notifications",
+  "notifications": [
+    {
+      "type": "slack",
+      "address": "#deployments",
+      "level": "pipeline",
+      "when": [
+        "pipeline.starting",
+        "pipeline.complete"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "type": "deployManifest",
+      "name": "Deploy to Production",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "account": "my-k8s-account",
+      "namespace": "production",
+      "source": "text",
+      "manifests": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {"name": "myapp"},
+          "spec": {
+            "replicas": 3,
+            "selector": {"matchLabels": {"app": "myapp"}},
+            "template": {
+              "metadata": {"labels": {"app": "myapp"}},
+              "spec": {"containers": [{"name": "myapp", "image": "myorg/myapp:v2.0"}]}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "wait",
+      "name": "Wait for Stabilization",
+      "refId": "2",
+      "requisiteStageRefIds": ["1"],
+      "waitTime": 120,
+      "notifications": [
+        {
+          "type": "slack",
+          "address": "#deployments",
+          "level": "stage",
+          "when": [
+            "stage.failed"
+          ],
+          "message": {
+            "stage.failed": {
+              "text": "ALERT: Deployment to production FAILED! Immediate action required."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

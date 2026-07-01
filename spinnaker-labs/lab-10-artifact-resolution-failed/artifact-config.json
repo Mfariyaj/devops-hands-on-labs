@@ -1,0 +1,16 @@
+{
+  "gitHubArtifactAccount": {
+    "name": "my-github-artifact",
+    "tokenFile": "/opt/spinnaker/credentials/github-token"
+  },
+  "expectedArtifactNotes": [
+    "Docker image type must be lowercase: docker/image",
+    "GitHub file references must use correct branch (main vs master)",
+    "Default artifacts must have type and reference filled in"
+  ],
+  "branchMapping": {
+    "oldDefault": "master",
+    "newDefault": "main",
+    "note": "Repository migrated default branch from master to main on 2024-01-15"
+  }
+}
