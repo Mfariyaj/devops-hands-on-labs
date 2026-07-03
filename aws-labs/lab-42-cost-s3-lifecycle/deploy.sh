@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-42-cost-s3-lifecycle"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   S3 costs too high: no lifecycle policy, TB of old data in Standard tier"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

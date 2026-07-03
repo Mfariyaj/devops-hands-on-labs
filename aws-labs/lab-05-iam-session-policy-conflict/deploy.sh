@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-05-iam-session-policy-conflict"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   Session policy reducing permissions below what role allows"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

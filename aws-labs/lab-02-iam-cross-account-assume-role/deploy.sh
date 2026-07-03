@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-02-iam-cross-account-assume-role"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   Cross-account AssumeRole fails: Trust policy wrong, external ID mismatch"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

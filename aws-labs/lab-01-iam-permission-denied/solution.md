@@ -1,15 +1,15 @@
-## Solution: IAM Permission Denied
+## Solution: lab-01-iam-permission-denied
 
 ### Root Cause
-Your application or CLI gets AccessDenied when calling AWS APIs. The IAM policy is missing required permissions or the resource ARN is wrong.
+IAM AccessDenied: Missing permissions in policy, wrong resource ARN, SCP blocking
+
+### Category: IAM & Security
 
 ### Fix
-Add the missing permission to the IAM policy. Ensure the Resource ARN matches. Check for explicit Deny in SCPs.
+1. Identify the misconfigured component from the error
+2. Check the relevant AWS service configuration
+3. Apply the fix (update policy/SG/route/config)
+4. Verify the error is resolved
 
-### Verification
-Run the commands below to verify the fix works:
-```bash
-aws sts get-caller-identity
-aws iam get-policy-version --policy-arn <arn> --version-id v1
-aws iam simulate-principal-policy --policy-source-arn <arn> --action-names ec2:DescribeInstances
-```
+### Key Takeaway
+IAM AccessDenied: Missing permissions in policy, wrong resource ARN, SCP blocking — this is a common production issue. Document the fix in your runbook.

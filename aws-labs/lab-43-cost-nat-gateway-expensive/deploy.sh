@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-43-cost-nat-gateway-expensive"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   NAT Gateway costs 00/month: S3/DynamoDB should use VPC endpoints"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

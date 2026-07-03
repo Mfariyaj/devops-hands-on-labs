@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-53-microservice-tracing-gaps"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   X-Ray traces incomplete: segments missing, SDK not propagating context"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-22-eks-coredns-not-resolving"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   CoreDNS pods CrashLoop after node scale: IP exhaustion in subnet"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

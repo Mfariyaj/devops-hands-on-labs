@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-24-ecs-task-not-starting"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   ECS task won't start: task role missing permissions, secret can't be fetched"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

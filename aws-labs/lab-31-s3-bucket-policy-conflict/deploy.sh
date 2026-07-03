@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-31-s3-bucket-policy-conflict"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   S3 403 Forbidden: bucket policy + IAM + Block Public Access conflicting"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

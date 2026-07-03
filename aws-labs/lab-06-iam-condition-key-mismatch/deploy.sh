@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-06-iam-condition-key-mismatch"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   Condition keys (aws:SourceIp, aws:RequestedRegion) blocking valid requests"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

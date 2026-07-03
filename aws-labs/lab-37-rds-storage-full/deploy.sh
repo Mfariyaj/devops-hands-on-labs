@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-37-rds-storage-full"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   RDS storage full: autoscaling disabled, binlogs not purged"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

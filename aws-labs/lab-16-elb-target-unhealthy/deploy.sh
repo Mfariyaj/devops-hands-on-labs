@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-16-elb-target-unhealthy"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   ALB targets all unhealthy: health check path wrong, SG blocking health check port"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

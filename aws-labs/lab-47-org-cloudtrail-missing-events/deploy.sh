@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-47-org-cloudtrail-missing-events"
+echo "📋 Category: Multi-Account & Organization"
+echo ""
+echo "🔧 Scenario:"
+echo "   CloudTrail not logging in member accounts: org trail not configured"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

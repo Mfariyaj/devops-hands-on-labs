@@ -1,45 +1,50 @@
 ## 🎯 How to Use This Lab
 
 1. Deploy: `./deploy.sh`
-2. Observe the error output
-3. Diagnose the root cause
-4. Apply the fix
-5. Verify it works. Check `solution.md` if stuck
+2. Read the AWS error output
+3. Identify which AWS service/config is wrong
+4. Fix using AWS CLI or Console
+5. Check `solution.md` if stuck
 
 ---
 
-# IAM Permission Denied
+# lab-01-iam-permission-denied
 
+## Category: IAM & Security
 ## Difficulty: ⭐⭐ Medium
 
 ## 📚 What This Teaches
-Your application or CLI gets AccessDenied when calling AWS APIs. The IAM policy is missing required permissions or the resource ARN is wrong.
+IAM AccessDenied: Missing permissions in policy, wrong resource ARN, SCP blocking
 
 ## 🔧 Scenario
-Your application or CLI gets AccessDenied when calling AWS APIs. The IAM policy is missing required permissions or the resource ARN is wrong.
+IAM AccessDenied: Missing permissions in policy, wrong resource ARN, SCP blocking
 
-## 💥 Error Output
+This is a real production scenario that AWS engineers encounter. Understanding this helps you debug faster in incident response.
+
+## 💥 Expected Error
 ```
-An error occurred (AccessDeniedException) when calling the DescribeInstances operation: User: arn:aws:iam::123456789012:user/deploy-user is not authorized to perform: ec2:DescribeInstances on resource: * with an explicit deny in a service control policy
+IAM AccessDenied: Missing permissions in policy, wrong resource ARN, SCP blocking
 ```
 
 ## 💡 Hints
 
 <details><summary>Hint 1</summary>
-Run 'aws sts get-caller-identity' to confirm which identity is making the call
+Read the error message. Which AWS service is returning the error? What specific action is being denied or failing?
 </details>
 
 <details><summary>Hint 2</summary>
-Check the IAM policy attached: 'aws iam list-attached-user-policies --user-name deploy-user'
+Check the configuration: IAM policies, Security Groups, Route Tables, or service-specific settings.
 </details>
 
 <details><summary>Hint 3</summary>
-Add the missing permission to the IAM policy. Ensure the Resource ARN matches. Check for explicit Deny in SCPs.
+Look at solution.md for the exact fix. Usually it's a missing permission, wrong ARN, or misconfigured networking.
 </details>
 
 ## 🛠️ Useful Commands
 ```bash
 aws sts get-caller-identity
-aws iam get-policy-version --policy-arn <arn> --version-id v1
-aws iam simulate-principal-policy --policy-source-arn <arn> --action-names ec2:DescribeInstances
+aws iam simulate-principal-policy --policy-source-arn <arn> --action-names <action>
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=<event>
+aws ec2 describe-security-groups --group-ids <sg-id>
+aws ec2 describe-route-tables --filters Name=vpc-id,Values=<vpc-id>
 ```

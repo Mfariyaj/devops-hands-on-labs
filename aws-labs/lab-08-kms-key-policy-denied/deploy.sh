@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-08-kms-key-policy-denied"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   KMS key policy not granting encrypt/decrypt to the right principal"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

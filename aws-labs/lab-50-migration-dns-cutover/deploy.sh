@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-50-migration-dns-cutover"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   Route53 weighted routing not shifting traffic: TTL too high, health check"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

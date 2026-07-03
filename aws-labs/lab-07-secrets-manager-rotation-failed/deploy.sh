@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-07-secrets-manager-rotation-failed"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   Secrets Manager Lambda rotation function failing: timeout, permissions"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

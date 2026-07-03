@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-17-eks-node-not-joining"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   EKS nodes NotReady: aws-auth ConfigMap missing role ARN, wrong AMI"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

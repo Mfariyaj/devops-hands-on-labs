@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-41-cost-reserved-vs-savings"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Wrong RI coverage: reserved wrong instance family, savings plan calculator"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

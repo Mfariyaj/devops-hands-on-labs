@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-40-cost-right-sizing"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Over-provisioned EC2: m5.4xlarge running at 5% CPU, should be t3.medium"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

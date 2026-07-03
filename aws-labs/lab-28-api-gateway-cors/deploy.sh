@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-28-api-gateway-cors"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   API Gateway CORS errors: missing headers, OPTIONS method not configured"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

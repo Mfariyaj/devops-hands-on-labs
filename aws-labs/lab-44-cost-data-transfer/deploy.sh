@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-44-cost-data-transfer"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Data transfer bill 000/month: cross-AZ traffic, should use AZ-aware routing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

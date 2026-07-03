@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-52-microservice-circuit-breaker"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   App Mesh circuit breaker not tripping: outlier detection config wrong"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

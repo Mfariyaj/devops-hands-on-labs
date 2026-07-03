@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-20-eks-cluster-autoscaler"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   Cluster Autoscaler not scaling: ASG tags wrong, IAM permission missing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

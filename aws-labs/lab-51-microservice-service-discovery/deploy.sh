@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-51-microservice-service-discovery"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   Cloud Map service discovery not working: namespace wrong, health check"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

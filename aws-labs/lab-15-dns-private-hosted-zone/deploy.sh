@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-15-dns-private-hosted-zone"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   Private hosted zone DNS not resolving: VPC association missing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

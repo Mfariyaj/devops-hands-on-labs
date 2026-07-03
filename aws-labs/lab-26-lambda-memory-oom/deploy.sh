@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-26-lambda-memory-oom"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   Lambda OOM killed: 128MB memory not enough for image processing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

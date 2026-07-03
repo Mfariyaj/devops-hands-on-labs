@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-49-migration-database-cutover"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   RDS migration stuck: DMS replication task error, CDC not working"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

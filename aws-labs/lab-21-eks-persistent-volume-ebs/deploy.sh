@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-21-eks-persistent-volume-ebs"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   EBS CSI driver PVC stuck Pending: StorageClass wrong, AZ mismatch"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

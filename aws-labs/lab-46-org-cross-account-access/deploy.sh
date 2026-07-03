@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-46-org-cross-account-access"
+echo "📋 Category: Multi-Account & Organization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Can't access resources in shared-services account: assume role chain"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

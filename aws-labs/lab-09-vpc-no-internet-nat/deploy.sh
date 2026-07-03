@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-09-vpc-no-internet-nat"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   Private subnet EC2 can't reach internet: NAT Gateway missing/misconfigured"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

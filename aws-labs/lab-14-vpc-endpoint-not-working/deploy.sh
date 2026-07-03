@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-14-vpc-endpoint-not-working"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   S3 VPC endpoint created but still going through NAT: route table not associated"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

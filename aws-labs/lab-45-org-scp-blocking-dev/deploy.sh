@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-45-org-scp-blocking-dev"
+echo "📋 Category: Multi-Account & Organization"
+echo ""
+echo "🔧 Scenario:"
+echo "   SCP blocking developers: DenyAllOutsideEU too broad, need exceptions"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

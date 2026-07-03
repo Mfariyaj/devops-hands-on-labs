@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-11-vpc-transit-gateway"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   Transit Gateway attachments connected but cross-VPC traffic failing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

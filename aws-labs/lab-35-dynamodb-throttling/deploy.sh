@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-35-dynamodb-throttling"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   DynamoDB ProvisionedThroughputExceeded: hot partition, wrong capacity mode"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-54-three-tier-app-broken"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   Classic 3-tier (ALB→EC2→RDS): each layer has connectivity issue"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

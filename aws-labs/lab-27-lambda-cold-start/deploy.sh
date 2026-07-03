@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-27-lambda-cold-start"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   Lambda cold start >10s: large deployment package, VPC ENI attach"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

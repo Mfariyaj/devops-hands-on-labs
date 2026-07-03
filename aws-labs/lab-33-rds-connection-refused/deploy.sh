@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-33-rds-connection-refused"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   Can't connect to RDS: wrong SG, not in same VPC, SSL required"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

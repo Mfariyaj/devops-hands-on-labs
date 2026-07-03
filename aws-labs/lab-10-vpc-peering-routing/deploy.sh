@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-10-vpc-peering-routing"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   VPC peering connected but traffic not flowing: route tables missing entries"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

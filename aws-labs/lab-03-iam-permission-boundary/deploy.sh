@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-03-iam-permission-boundary"
+echo "📋 Category: IAM & Security"
+echo ""
+echo "🔧 Scenario:"
+echo "   Permission boundary blocking actions despite policy allowing them"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

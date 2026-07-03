@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-32-s3-replication-not-working"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   Cross-region replication not replicating: versioning disabled, IAM wrong"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

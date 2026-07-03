@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-36-elasticache-connection-timeout"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   ElastiCache Redis unreachable: not in VPC, SG blocking 6379"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

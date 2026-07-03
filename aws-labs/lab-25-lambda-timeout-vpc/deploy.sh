@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-25-lambda-timeout-vpc"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   Lambda timeout: deployed in VPC without NAT, can't reach DynamoDB"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

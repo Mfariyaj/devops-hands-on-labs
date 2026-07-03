@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-13-nacl-stateless-blocking"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   NACL blocking return traffic: forgot NACLs are STATELESS unlike SGs"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

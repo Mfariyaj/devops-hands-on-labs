@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-34-rds-failover-downtime"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   RDS Multi-AZ failover taking too long: app not reconnecting, DNS cache"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

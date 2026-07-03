@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-38-aurora-global-replication-lag"
+echo "📋 Category: Storage & Database"
+echo ""
+echo "🔧 Scenario:"
+echo "   Aurora Global Database replication lag >1s: network, write-heavy"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

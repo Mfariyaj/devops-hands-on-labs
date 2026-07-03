@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-29-api-gateway-authorizer-denied"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   Custom authorizer denying valid tokens: wrong token source, cache stale"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

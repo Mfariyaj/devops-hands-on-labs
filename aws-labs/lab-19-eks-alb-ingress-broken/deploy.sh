@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-19-eks-alb-ingress-broken"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   AWS ALB Ingress Controller not creating ALB: subnet tags missing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

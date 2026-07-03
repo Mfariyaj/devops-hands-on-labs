@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-23-ecr-push-pull-denied"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   ECR push/pull denied: login token expired, repo policy wrong, lifecycle deleting"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

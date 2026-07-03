@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-18-eks-pod-identity-failed"
+echo "📋 Category: EKS & Containers"
+echo ""
+echo "🔧 Scenario:"
+echo "   EKS Pod Identity (IRSA) not working: wrong OIDC provider, annotation missing"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

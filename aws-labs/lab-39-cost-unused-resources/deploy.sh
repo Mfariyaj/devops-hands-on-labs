@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-39-cost-unused-resources"
+echo "📋 Category: Cost Optimization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Identify and remove: unattached EBS volumes, idle ELBs, old snapshots"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

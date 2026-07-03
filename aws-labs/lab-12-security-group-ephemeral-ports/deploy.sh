@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-12-security-group-ephemeral-ports"
+echo "📋 Category: Networking & VPC"
+echo ""
+echo "🔧 Scenario:"
+echo "   App works on port 443 but response never comes back: ephemeral ports blocked"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

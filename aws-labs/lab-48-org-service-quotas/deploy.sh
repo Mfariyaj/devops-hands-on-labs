@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-48-org-service-quotas"
+echo "📋 Category: Multi-Account & Organization"
+echo ""
+echo "🔧 Scenario:"
+echo "   Hitting service quotas in new account: need to request increases"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

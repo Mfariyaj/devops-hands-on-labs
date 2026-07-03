@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-55-blue-green-deployment-failed"
+echo "📋 Category: Migration & Microservices"
+echo ""
+echo "🔧 Scenario:"
+echo "   CodeDeploy blue/green: hooks failing, traffic not shifting, rollback"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"

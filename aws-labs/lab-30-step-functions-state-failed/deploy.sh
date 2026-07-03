@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "🚀 Lab: lab-30-step-functions-state-failed"
+echo "📋 Category: Serverless"
+echo ""
+echo "🔧 Scenario:"
+echo "   Step Functions execution failed: payload too large, timeout, wrong input path"
+echo ""
+echo "💡 Start debugging with:"
+echo "   aws sts get-caller-identity"
+echo "   Check README.md for specific commands"
